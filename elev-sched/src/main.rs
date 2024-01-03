@@ -59,7 +59,6 @@ enum PassengerRequestKind {
     Offboard(u64),
 }
 
-// Default is for taking out resp_tx
 #[derive(Debug)]
 struct PassengerRequest {
     kind: PassengerRequestKind,
@@ -186,7 +185,7 @@ impl ElevatorScheduler {
                         let _ = req.resp_tx.send(res);
                     }
                     Poll::Ready(None) => {
-                        // self condition could occur if the sender half of the channel has been dropped,
+                        // this condition could occur if the sender half of the channel has been dropped,
                         // which might indicate that the scheduler is shutting down.
                         return Poll::Ready(());
                     }
